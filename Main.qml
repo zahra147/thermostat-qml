@@ -7,9 +7,9 @@ Window {
     title: qsTr("Thermostat")
     color: "#1a1a2e"
     property int temperature: backend.temperature
-
+    Component.onCompleted: weather.fetchWeather("Hamburg")
     Text {
-        text: "23.0°C"
+        text: weather.outdoorTemp.toFixed(1) + "°C"
         color: "white"
         font.pixelSize: 28
         font.bold: true
@@ -154,6 +154,41 @@ Window {
             text: "Settings"
             color: "white"
             font.pixelSize: 22
+        }
+        TextField {
+            id: cityInput
+            width: 250
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: parent.top
+            anchors.topMargin: 80
+            placeholderText: "Enter city..."
+            color: "white"
+            background: Rectangle {
+                color: "#1a1a2e"
+                radius: 8
+            }
+        }
+        Rectangle {
+            width: 150
+            height: 45
+            radius: 10
+            color: "#e94560"
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: cityInput.bottom
+            anchors.topMargin: 20
+            Text {
+                anchors.centerIn: parent
+                text: "Apply"
+                color: "white"
+                font.pixelSize: 18
+            }
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    weather.fetchWeather(cityInput.text)
+                    settingsPopup.close()
+                }
+            }
         }
         Rectangle {
             width: 30
