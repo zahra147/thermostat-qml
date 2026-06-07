@@ -19,7 +19,7 @@ Window {
     }
 
     Text {
-        text: "Clear | Air Excellent"
+        text: weather.cityName
         color: "#aaaaaa"
         font.pixelSize: 14
         anchors.top: parent.top
